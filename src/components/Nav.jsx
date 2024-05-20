@@ -1,9 +1,20 @@
 import { useEffect, useState } from "react";
 import { IoMenuOutline } from "react-icons/io5";
 import { IoCloseSharp } from "react-icons/io5";
+import { NavLink } from "react-router-dom";
 const Nav = () => {
   const [open, setOpen] = useState(false);
   const [theme, setTheme] = useState('light')
+
+  useEffect(() => {
+      
+      localStorage.setItem('theme', theme);
+      const localTheme = localStorage.getItem('theme');
+
+    // add custom data-theme attribute
+    document.querySelector('html').setAttribute('data-theme', localTheme);
+  }, [theme])
+
   const handleToggle = e =>{
     if(e.target.checked){
         setTheme('cyberpunk')
@@ -12,16 +23,8 @@ const Nav = () => {
     }
   }
 
-  useEffect(() => {
-    localStorage.setItem('theme', theme);
-    const localTheme = localStorage.getItem('theme');
-
-    // add custom data-theme attribute
-    document.querySelector('html').setAttribute('data-theme', localTheme);
-  }, [theme])
-
   return (
-    <div className="flex justify-between items-center px-8">
+    <div className="flex sticky shadow-lg z-10 justify-between items-center px-8">
       <div>
         <h1 className="text-3xl font-semibold">Insight Journal</h1>
       </div>
@@ -36,19 +39,19 @@ const Nav = () => {
           </button>
         </div>
         <div
-          className={`absolute duration-1000 md:duration-0 -right-5 md:static md:flex items-center gap-4 bg-primary p-5 md:bg-transparent ${
+          className={`absolute duration-1000 md:duration-0 -right-5 md:static md:flex items-center gap-4 bg-primary p-3 md:bg-transparent ${
             open ? "-top-60" : "top-6"
           }`}
         >
-          <h3 className="text-lg font-medium text-center hover:text-white hover:bg-purple-400 py-1 px-2">
+          <NavLink to='/' className="text-lg font-medium text-center hover:text-white hover:bg-warning py-1 px-2">
             Home
-          </h3>
-          <h3 className="text-lg font-medium text-center hover:text-white hover:bg-purple-400 py-1 px-2">
+          </NavLink>
+          <NavLink to='/blogs' className="text-lg font-medium text-center hover:text-white hover:bg-warning py-1 px-2">
             Blogs
-          </h3>
-          <h3 className="text-lg font-medium text-center hover:text-white hover:bg-purple-400 py-1 px-2">
+          </NavLink>
+          <NavLink to='/bookmarks' className="text-lg font-medium text-center hover:text-white hover:bg-warning py-1 px-2">
             Bookmarks
-          </h3>
+          </NavLink>
           <div className="text-center">
             <label className="swap swap-rotate">
               {/* this hidden checkbox controls the state */}
