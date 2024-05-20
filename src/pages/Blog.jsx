@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Blog = ({blog}) => {
     const {cover_image, title, description, published_at, id} = blog;
     return (
-       <div className='border border-warning hover:scale-105 transition'>
+       <div className='border border-warning hover:scale-105 transition p-3'>
             <Link to = {`/blog/${id}`}
             className="max-w-sm mx-auto group hover:no-underline focus:no-underline dark:bg-gray-50"
           >
